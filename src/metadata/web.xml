@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<!-- esta seccion contiene la presentacion del web-app	-->
+	<display-name>Web-App Ejemplo 7</display-name>
+	<description>
+		Este proyecto contiene un web-app que sera publicado en tomcat.
+	</description>
+
+	<!-- esta seccion contiene la descripcion de los 	-->
+	<!-- servlets que viviran en este web-app		-->
+	<servlet>
+		<servlet-name>ServApp7</servlet-name>
+		<servlet-class>edu.ipn.upiicsa.servlet.ServApp7</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ServApp7</servlet-name>
+		<url-pattern>/ServApp7</url-pattern>
+	</servlet-mapping>
+
+	<!-- esta seccion permite al web-app saber cual es el	-->
+	<!-- conjunto de archivos de bienvenida			-->
+	<welcome-file-list>
+		<welcome-file>
+			/jsp/index.jsp
+		</welcome-file>
+		<welcome-file>
+			/html/index.htm
+		</welcome-file>
+	</welcome-file-list>
+	
+</web-app>
