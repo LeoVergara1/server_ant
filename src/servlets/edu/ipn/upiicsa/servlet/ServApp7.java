@@ -26,16 +26,18 @@ public class ServApp7 extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter salida = response.getWriter();
 
-		String	expSQL;			// el query que vamos a ejecutar
-		int		tenID,			// llave primaria de la BD
-				tenJG,			// juegos ganados
-				tenJP,			// juegos perdidos
-				tenJJ,			// juegos totales: este sera un campo calculado...
-				tenPEP,			// porcentaje eficiencia pasto
-				tenPEA,			// porcentaje eficiencia arcilla
-				tenPES;			// porcentaje eficiencia sintetico
-		String	tenNombre,		// nombre del jugador
-				tenApellido;	// apellido del jugador
+				String	expSQL;
+				int		id_medico;
+				String	nombre,
+						ap_pat,
+						ap_mat,
+						especialidad,
+						cedula,
+						unidad_admin,
+						area,
+						email,
+						telefono,
+						contrasena;
 
 		try{
 
@@ -45,11 +47,11 @@ public class ServApp7 extends HttpServlet {
 						//    El conector a mysql se pued obtener en http://www.mysql.com/products/connector/
 						// (en mi caso  mysql-connector-java-5.1.18-bin.jar)
 					   //     se debe colocar el subdirectorio lib de apache-tomcat7.0
-			Connection conex = DriverManager.getConnection("jdbc:mysql://localhost:3306/torneotenis","root","makingdevs");
+			Connection conex = DriverManager.getConnection("jdbc:mysql://localhost:3306/eqe","root","makingdevs");
              // ************    Conexion exitosa
 			// *************   crea declaracion
 			Statement estSQL = conex.createStatement();
-			expSQL = "SELECT * FROM Tenistas;";
+			expSQL = "SELECT * FROM medicos;";
 			// ************   Intenta ejecutar consulta
 			ResultSet rs1 = estSQL.executeQuery(expSQL);
 			// ***********  Consulta ejecutada
@@ -77,26 +79,30 @@ public class ServApp7 extends HttpServlet {
 			// extrae todos los datos con un cursor...
 			// y envuelvelos con HTML
 			while (rs1.next()) {
-				tenID = rs1.getInt(1);
-				tenNombre = rs1.getString(2);
-				tenApellido = rs1.getString(3);
-				tenJG = rs1.getInt(4);
-				tenJP = rs1.getInt(5);
-				tenJJ = tenJG + tenJP; // calculamos el total de juegos
-				tenPEP = rs1.getInt(6);
-				tenPEA = rs1.getInt(7);
-				tenPES = rs1.getInt(8);
+				id_medico = rs1.getInt(1);
+				nombre = rs1.getString(2);
+				ap_pat = rs1.getString(3);
+				ap_mat = rs1.getString(4);
+				especialidad = rs1.getString(5);
+				cedula = rs1.getString(6);
+				unidad_admin = rs1.getString(7);
+				area = rs1.getString(8);
+				email = rs1.getString(9);
+				telefono =rs1.getString(10);
+				contrasena = rs1.getString(11);
 
 				// ahora, el envoltorio...
-				salida.println("<td>"+tenID+"</td>");
-				salida.println("<td>"+tenNombre+"</td>");
-				salida.println("<td>"+tenApellido+"</td>");
-				salida.println("<td>"+tenJG+"</td>");
-				salida.println("<td>"+tenJP+"</td>");
-				salida.println("<td>"+tenJJ+"</td>");
-				salida.println("<td>"+tenPEP+"</td>");
-				salida.println("<td>"+tenPEA+"</td>");
-				salida.println("<td>"+tenPES+"</td>");
+				salida.println("<td>"+id_medico+"</td>");
+				salida.println("<td>"+nombre+"</td>");
+				salida.println("<td>"+ap_pat+"</td>");
+				salida.println("<td>"+ap_mat+"</td>");
+				salida.println("<td>"+especialidad+"</td>");
+				salida.println("<td>"+cedula+"</td>");
+				salida.println("<td>"+unidad_admin+"</td>");
+				salida.println("<td>"+area+"</td>");
+				salida.println("<td>"+email+"</td>");
+				salida.println("<td>"+telefono+"</td>");
+				salida.println("<td>"+contrasena+"</td>");
 
 				// seguimos al siguiente renglon, si lo hay
 				salida.println("<tr>");
