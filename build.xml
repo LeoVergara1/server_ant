@@ -16,39 +16,50 @@
 		7.0. El proyecto administra la compilacion,
 		preparacion, publicacion y remocion del web-app.
 		La publicacion y despublicacion esta simplificada.
-		En este momento no se utilizara las tareas de 
-		deploy y undeploy de Tomcat. 
+		En este momento no se utilizara las tareas de
+		deploy y undeploy de Tomcat.
 	</description>
-	       
-        
+	<property name="sql.driver" value="org.gjt.mm.mysql.Driver"/>
+  <property name="sql.url" value= "jdbc:mysql://localhost:3306/"/>
+  <property name="sql.user" value="root"/>
+  <property name="sql.pass" value="makingdevs"/>
+
+	<sql driver="${sql.driver}"
+     url="${sql.url}"
+     userid="${sql.user}"
+     password="${sql.pass}"
+		 classpath="mysql-connector-java-5.1.41-bin.jar"
+     src="resources/create_data_eqe.sql"/>
+
+
 	<!-- ******************************************	-->
 	<!-- seccion que define propiedades utilizadas	-->
 	<!-- en la construccion de este sistema		-->
-	
+
 	<property name="project.title" value="${ant.project.name}"/>
 	<property name="project.version" value="0.5"/>
-	
+
         <property environment="env"/>
 
 
 	<!-- Debe definirse la variable de entorno UPIICSA_HOME, en mi caso: -->
-	<!-- C:\Users\abel\ArchivosDeProgramas\apache-tomcat-9.0.12 -->		
-	
+	<!-- C:\Users\abel\ArchivosDeProgramas\apache-tomcat-9.0.12 -->
+
 	<property name="tomcat.home" value="${env.UPIICSA_HOME}"/>
-		
-	<!-- ******************************************	-->	
+
+	<!-- ******************************************	-->
 	<!-- seccion que define las bibliotecas utilizadas-->
 	<!-- en la construccion de este sistema		-->
-	<!-- ******************************************	-->	
-	<path id="compile.classpath">    
-		<pathelement location="${tomcat.home}/lib/servlet-api.jar" />	    
+	<!-- ******************************************	-->
+	<path id="compile.classpath">
+		<pathelement location="${tomcat.home}/lib/servlet-api.jar" />
 	</path>
 	<path id="run.classpath">
 		<path refid="compile.classpath"/>
 	</path>
-	  
-	 
-	<!-- ******************************************	-->	
+
+
+	<!-- ******************************************	-->
 	<!-- esta meta borra los ejecutables y distri-	-->
 	<!-- bucion anteriores				-->
 	<target	name="borra"
@@ -59,13 +70,13 @@
 		<echo>Distribucion anterior borrada...</echo>
 	</target>
 
-         
+
 	<!-- ******************************************	-->
-	<!-- seccion de metas operativas del proyecto	-->	
+	<!-- seccion de metas operativas del proyecto	-->
 	<!-- esta meta fabrica carpetas para colocar	-->
 	<!-- archivos ejecutables, y librerias		-->
 	<!-- ******************************************	-->
-	
+
 	<!-- ******************************************	-->
 	<!-- esta meta fabrica los directorios que 	-->
 	<!-- seran usados durante la construccion del	-->
@@ -91,8 +102,8 @@
 			includeemptydirs="false">
 			<fileset dir="./src/jsp">
 				<include name="index.jsp" />
-				
-			</fileset>	
+
+			</fileset>
 		</copy>
 		<copy	toDir="./build/WEB-INF"
 			overwrite="true"
@@ -100,21 +111,21 @@
 			<fileset dir="./src/metadata">
 				<include name="web.xml" />
 			</fileset>
-		</copy>	
+		</copy>
 		<copy	toDir="./build/html"
 			overwrite="true"
 			includeemptydirs="false">
 			<fileset dir="./src/html">
 				<include name="index.htm" />
 			</fileset>
-		</copy>			
+		</copy>
 		<echo>Nuevas carpetas creadas...</echo>
 	</target>
-	
+
         <!-- ******************************************	-->
 	<!-- esta meta compila todos los fuentes que se	-->
 	<!-- encuentren en la carpeta sources		-->
-        <!-- ******************************************	-->	        
+        <!-- ******************************************	-->
 	<target name="compila"
 		description="compila todos los fuentes">
 		<javac	destdir="./build/WEB-INF/classes"
@@ -125,7 +136,7 @@
 		<echo>Compilacion terminada...</echo>
 
 	</target>
-	       
+
 	<!-- ******************************************	-->
 	<!-- esta meta publica toda la aplicacion web 	-->
 	<!-- al servidor Tomcat				-->
@@ -141,36 +152,36 @@
 			<fileset dir="./build">
 				<include name="**/*.*" />
 			</fileset>
-		</copy>	
+		</copy>
 	</target>
 
 	<!-- ******************************************	-->
 	<!-- esta meta desinstala toda la aplicacion 	-->
 	<!-- web al servidor Tomcat			-->
-	<!-- ******************************************	-->	
-	
+	<!-- ******************************************	-->
+
 	<target name="despublica"
-		description="Da de baja la aplicacion al contenedor de servlets">		
+		description="Da de baja la aplicacion al contenedor de servlets">
 			<delete	dir="${tomcat.home}/webapps/${project.title}" />
 		<echo>Distribucion anterior borrada...</echo>
-	
+
 	</target>
 
         <!-- ******************************************	-->
 	<!-- aqui comenzamos el proceso, el cual con-	-->
 	<!-- siste en borrar las carpetas de ejecuta-	-->
 	<!-- bles y librerias				-->
-        <!-- ******************************************	-->        
+        <!-- ******************************************	-->
 	<target	name="principal"
 			depends = "	borra,
 					inicia,
 					despublica,
 					compila,
 					publica"
-					
+
 			description="inicia fabricacion de nueva version">
 			<echo>Terminando proceso... </echo>
-	
+
 			<!-- ahora explica lo que tiene que ha-	-->
 			<!-- cer el usuario para ejecutar la	-->
 			<!-- aplicacion				-->
