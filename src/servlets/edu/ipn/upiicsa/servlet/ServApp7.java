@@ -58,22 +58,24 @@ public class ServApp7 extends HttpServlet {
 
 			// avisa que vamos a comenzar a sacar datos: ENCABEZADO
 
-			salida.println("<h1>Base de Datos: TorneoTenis</h1>");
+			salida.println("<h1>Base de Datos: Cecy y Ana</h1>");
 			salida.println("<h1>Esta aplicacion solo demuestra la conexion a una Base de Datos</h1>");
 			salida.println("<h1>No utiliza el patron de diseno MVC</h1>");
-			salida.println("<h2>Tabla: tenistas</h2>");
+			salida.println("<h2>Tabla: EQE</h2>");
 			salida.println("<h3>Consulta generica</h3>");
 			salida.println("<hr size=3 color=red><br>");
 			salida.println("<table border=1>");
 			salida.println("<th>ID</th>");
 			salida.println("<th>Nombre</th>");
-			salida.println("<th>Apellido</th>");
-			salida.println("<th>JP</th>");
-			salida.println("<th>JG</th>");
-			salida.println("<th>JJ</th>");
-			salida.println("<th>%Ef.Arcilla</th>");
-			salida.println("<th>%Ef.Pasto</th>");
-			salida.println("<th>%Ef.Sint&eacute;tico</th>");
+			salida.println("<th>Apellido Paterno</th>");
+			salida.println("<th>Apellido Materno</th>");
+			salida.println("<th>Especialidad</th>");
+			salida.println("<th>Cedula</th>");
+			salida.println("<th>Unidad Administrativa</th>");
+			salida.println("<th>Area</th>");
+			salida.println("<th>Email</th>");
+			salida.println("<th>Telefono</th>");
+			salida.println("<th>Contrasena</th>");
 			salida.println("<tr>");
 
 			// extrae todos los datos con un cursor...
@@ -120,7 +122,6 @@ public class ServApp7 extends HttpServlet {
 			salida.println(laFalla.getMessage());
 		salida.println("Esta fallando");
 		} // end try
-		salida.println("laFalla.getMessage()");
 
     } // fin doGet
 
