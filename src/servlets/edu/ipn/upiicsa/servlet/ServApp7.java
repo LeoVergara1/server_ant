@@ -71,7 +71,7 @@ public class ServApp7 extends HttpServlet {
 
 			salida.println("<h1>Base de Datos: Cecy y Ana</h1>");
 			salida.println("<h1>Esta aplicacion solo demuestra la conexion a una Base de Datos</h1>");
-			salida.println("<h1>No utiliza el patron de diseno MVC</h1>");
+			salida.println("<h1>Y el diseno MVC</h1>");
 			salida.println("<h2>Tabla: EQE</h2>");
 			salida.println("<h3>Consulta generica</h3>");
 			salida.println("<hr size=3 color=red><br>");
