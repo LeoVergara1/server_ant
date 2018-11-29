@@ -15,7 +15,7 @@
 <title>Este es el archivo index jsp</title>
 </head>
 <body>
-<h1> Archivo index.jsp - ServApp7 </h1>
+<h1> Agregando Nuevo Usuario </h1>
 <hr />
 <!-- La accion de la forma no esta establecida -->
 <!-- Si no se modifica se regresa a la raiz del Contenedor -->
