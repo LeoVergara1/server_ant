@@ -51,11 +51,22 @@ public class ServApp7 extends HttpServlet {
              // ************    Conexion exitosa
 			// *************   crea declaracion
 			Statement estSQL = conex.createStatement();
+			Statement estSQLDelete = conex.createStatement();
 			expSQL = "SELECT * FROM medicos;";
 			// ************   Intenta ejecutar consulta
-			ResultSet rs1 = estSQL.executeQuery(expSQL);
 			// ***********  Consulta ejecutada
+			try {
+				String id = peticion.getParameter("id");
+				int idInt = Integer.parseInt(id);
+				String borrar = "DELETE FROM medicos where id_medico='"+idInt+"'";
+				estSQLDelete.execute(borrar);
+				if(idInt > 0) {
+					salida.println("<h1>Borraste el id:  "+ id +"</h1>");
+				}
+			} catch (Exception parseo) {
 
+			}
+			ResultSet rs1 = estSQL.executeQuery(expSQL);
 			// avisa que vamos a comenzar a sacar datos: ENCABEZADO
 
 			salida.println("<h1>Base de Datos: Cecy y Ana</h1>");
@@ -76,6 +87,7 @@ public class ServApp7 extends HttpServlet {
 			salida.println("<th>Email</th>");
 			salida.println("<th>Telefono</th>");
 			salida.println("<th>Contrasena</th>");
+			salida.println("<th></th>");
 			salida.println("<tr>");
 
 			// extrae todos los datos con un cursor...
@@ -105,6 +117,7 @@ public class ServApp7 extends HttpServlet {
 				salida.println("<td>"+email+"</td>");
 				salida.println("<td>"+telefono+"</td>");
 				salida.println("<td>"+contrasena+"</td>");
+				salida.println("<td><form action='http://localhost:8080/ServApp7/ServApp7' method='get'><input type='hidden' name='id' value='"+id_medico+"'/><button type='submit'>Delete</button> </form></td>");
 
 				// seguimos al siguiente renglon, si lo hay
 				salida.println("<tr>");
@@ -114,15 +127,47 @@ public class ServApp7 extends HttpServlet {
 			// terminamos la tabla...
 			salida.println("</table><br>");
 
+			salida.println("<form action='http://localhost:8080/ServApp7/' method='get'><input type='hidden' name='id' value='"+1+"'/><button type='submit'>Agregar Nuevo</button> </form>");
 			estSQL.close();	// cierra la conexion con la BD
 			conex.close();	// y cierra la conexion con el driver
 
 		} catch (Exception laFalla) {
 			System.out.println(laFalla.getMessage());
 			salida.println(laFalla.getMessage());
-		salida.println("Esta fallando");
+		salida.println("Esta fallando2");
 		} // end try
 
-    } // fin doGet
+		} // fin doGet
 
+		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			PrintWriter salida = response.getWriter();
+			String name = request.getParameter("name");
+			String id_medico = request.getParameter("id_medico");
+			String ap_mat = request.getParameter("ap_mat");
+			String especialidad = request.getParameter("cedula");
+			String cedula = request.getParameter("especialidad");
+			String tipo_institucion = request.getParameter("tipo_institucion");
+			String unidad_admin = request.getParameter("unidad_admin");
+			String area = request.getParameter("area");
+			String email = request.getParameter("email");
+			String telefono = request.getParameter("telefono");
+			String contrasena = request.getParameter("contrasena");
+			try{
+
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Connection conex = DriverManager.getConnection("jdbc:mysql://localhost:3306/eqe","root","makingdevs");
+			Statement estSQL = conex.createStatement();
+			String stringSQL;
+			stringSQL = "insert into medicos values("+id_medico+", ' " +name+ " ', '"+ap_mat+"', '"+ap_mat+" ', '"+especialidad+"', '"+cedula+"', '"+tipo_institucion+"', '"+unidad_admin+"', '"+area+"', '"+email+"', '"+telefono+"','"+contrasena+"')";
+			salida.println("<form action='http://localhost:8080/ServApp7/ServApp7' method='get'><button type='submit'>Consultar</button> </form>");
+
+			Boolean rs1 = estSQL.execute(stringSQL);
+      response.setContentType("text/html");
+			salida.println("<h3>Insertaste a " + name + "</h3>");
+			String color = request.getParameter("name");
+			}catch (Exception laFalla){
+				System.out.println(laFalla.getMessage());
+				salida.println(laFalla.getMessage());
+			}
+	}
 } // fin ServApp7
